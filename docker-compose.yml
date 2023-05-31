@@ -35,8 +35,8 @@ services:
     image: whiterabbitsecurity/openxpki3
     command: /usr/bin/start-apache
     ports:
-      - "8080:80/tcp"
-      - "8443:443/tcp"
+      - "4080:80/tcp"
+      - "4443:443/tcp"
     volumes:
       - ./openxpki-config:/etc/openxpki
       - openxpkilog:/var/log/openxpki
