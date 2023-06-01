@@ -8,19 +8,19 @@ services:
     volumes:
       - openxpkidb:/var/lib/mysql
       - openxpkidbsocket:/var/run/mysqld/
-      - ./openxpki-config/contrib/sql/schema-mariadb.sql:/docker-entrypoint-initdb.d/schema-mariadb.sql
+      - ${OPENXPKI_CONFIG_PATH}/contrib/sql/schema-mariadb.sql:/docker-entrypoint-initdb.d/schema-mariadb.sql
     environment:
-      MYSQL_DATABASE: openxpki
-      MYSQL_USER: openxpki
-      MYSQL_PASSWORD: openxpki 
-      MYSQL_ROOT_PASSWORD: topsecret
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD} 
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
   openxpki-server:
 #    restart: always
     image: whiterabbitsecurity/openxpki3
     command: /usr/bin/openxpkictl start --no-detach
     volumes:
-      - ./openxpki-config:/etc/openxpki
+      - ${OPENXPKI_CONFIG_PATH}:/etc/openxpki
       - openxpkilog:/var/log/openxpki
       - openxpkisocket:/var/openxpki/
       - openxpkidbsocket:/var/run/mysqld/
@@ -38,7 +38,7 @@ services:
       - "4080:80/tcp"
       - "4443:443/tcp"
     volumes:
-      - ./openxpki-config:/etc/openxpki
+      - ${OPENXPKI_CONFIG_PATH}:/etc/openxpki
       - openxpkilog:/var/log/openxpki
       - openxpkisocket:/var/openxpki/
       - openxpkidbsocket:/var/run/mysqld/
